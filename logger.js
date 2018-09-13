@@ -1,13 +1,13 @@
-// Contains no exports
-console.log(module);
+const stringExtensions = require('./stringExtensions');
 
 function log(message){
-    //Send an http request
     console.log(message);
 }
 
-// Exports log function
-module.exports.log = log;
+function reverseLog(message)
+{
+    console.log(stringExtensions.reverseString(message));
+}
 
-// Contains one export
-console.log(module);
+module.exports.log = log;
+module.exports.reverseLog = reverseLog;
