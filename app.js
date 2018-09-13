@@ -17,12 +17,12 @@ function logMemoryUsage(){
     logger.log(`Free Memory: ${freeMemory}`);
 }
 
-function logFilesInCurrentFolder(){
+function logFilesInCurrentFolderSync(){
     const files = fs.readdirSync('./');
     logger.log(files);
 }
 
-function logReadDirectories(){    
+function logFilesInCurrentFolderAsync(){    
     fs.readdir('./', function(err, files){
         if (err) logger.log(`Error : ${err}`);
         else logger.log(`Result : ${files}`);
@@ -31,5 +31,5 @@ function logReadDirectories(){
 
 logFilePath();
 logMemoryUsage();
-logFilesInCurrentFolder();
-logReadDirectories();
+logFilesInCurrentFolderSync();
+logFilesInCurrentFolderAsync();
