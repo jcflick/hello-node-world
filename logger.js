@@ -1,13 +1,17 @@
 const stringExtensions = require('./stringExtensions');
 
-function log(message){
-    console.log(message);
-}
+const EventEmitter = require('events');
+var emitter = new EventEmitter();
 
-function reverseLog(message)
-{
-    console.log(stringExtensions.reverseString(message));
+class Logger extends EventEmitter {
+    log(message){
+        console.log(message);
+        this.emit('messageLogged', {id : 1, url: 'http://'});
+    }
+    reverseLog(message)
+    {
+        console.log(stringExtensions.reverseString(message));
+        this.emit('messageLogged', {id : 2, url: 'http://'});
+    }
 }
-
-module.exports.log = log;
-module.exports.reverseLog = reverseLog;
+module.exports = Logger;
