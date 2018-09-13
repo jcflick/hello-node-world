@@ -1,5 +1,19 @@
-function hello(name){
+function sayHello(name){
     console.log('Hello ' + name);
 }
 
-hello('JoannaZ');
+sayHello('JoannaZ');
+
+// global object
+console.log() 
+
+// global functions
+// setTimeout()
+// clearTimeout();
+
+// setInterval()
+// clearInterval()
+var message = 'welcome.';
+global.console.log(message);
+
+console.log(module);
