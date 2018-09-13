@@ -1,6 +1,28 @@
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
+const http = require('http');
+
+const server = http.createServer((req, res) =>{
+    if(req.url === '/'){
+        res.write('Hello, world!');
+        res.end();
+    }
+    if (req.url === '/api/fruit'){
+        res.write(JSON.stringify(['Apple','Pomegranate','Orange']));
+        res.end();
+    }
+});
+
+server.on('connection', (socket) => {
+    logger.log('New connection...');
+});
+
+server.listen(3000);
+
+console.log('Listening on port 3000...');
+
+
 const Logger = require('./logger');
 const logger = new Logger();
 
@@ -32,8 +54,3 @@ function logFilesInCurrentFolderAsync(){
         else logger.reverseLog(`\n\r\n\rFiles in this directory : ${files}`);
     });
 }
-
-logFilePath();
-logMemoryUsage();
-logFilesInCurrentFolderSync();
-logFilesInCurrentFolderAsync();
