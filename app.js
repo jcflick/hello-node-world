@@ -1,35 +1,39 @@
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
-const logger = require('./logger');
+const Logger = require('./logger');
+const logger = new Logger();
 
+logger.on('messageLogged',function(arg){
+    console.log('Message logged from ' + arg.id + '\r\n\r\n')
+});
 
 function logFilePath(){
     var pathObj = path.parse(__filename);
-    logger.log(pathObj);
+    logger.log(`Path Object : ${pathObj}\r\n\r\n`);
 }
 
 function logMemoryUsage(){
     var totalMemory = os.totalmem();
     var freeMemory = os.freemem();
     
-    logger.log(`Total Memory: ${totalMemory}`);
-    logger.log(`Free Memory: ${freeMemory}`);
+    logger.log(`Total Memory : ${totalMemory}`);
+    logger.log(`Free Memory : ${freeMemory}\r\n\r\n`);
 }
 
-function logFilesInCurrentFolder(){
+function logFilesInCurrentFolderSync(){
     const files = fs.readdirSync('./');
-    logger.log(files);
+    logger.log(`Files in this directory : ${files}\r\n\r\n`);
 }
 
-function logReadDirectories(){    
+function logFilesInCurrentFolderAsync(){    
     fs.readdir('./', function(err, files){
         if (err) logger.log(`Error : ${err}`);
-        else logger.log(`Result : ${files}`);
+        else logger.reverseLog(`\n\r\n\rFiles in this directory : ${files}`);
     });
 }
 
 logFilePath();
 logMemoryUsage();
-logFilesInCurrentFolder();
-logReadDirectories();
+logFilesInCurrentFolderSync();
+logFilesInCurrentFolderAsync();
